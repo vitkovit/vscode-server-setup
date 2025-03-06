@@ -4,7 +4,11 @@ This script automates the provisioning of a VS Code Server on a public virtual m
 
 ## Prerequisites
 
-1.  **Configure `config.ini`:**
+1.  **Deployed VM**
+
+    Deploy Ubuntu 24.04 LTS on a hosting service or anywhere behind public static IP.
+
+2.  **Configure `config.ini`:**
 
     Create a `config.ini` file with the following structure:
 
@@ -20,7 +24,7 @@ This script automates the provisioning of a VS Code Server on a public virtual m
 
     **Note:** The `CODE_SERVER_VERSION` may vary. Refer to the latest releases on [https://github.com/coder/code-server/releases/](https://github.com/coder/code-server/releases/) for the most up-to-date version.
 
-2.  **Make the script executable:**
+3.  **Make the script executable:**
 
     ```bash
     chmod +x setup_code_server.sh
