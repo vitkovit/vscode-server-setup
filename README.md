@@ -1,69 +1,77 @@
 # vscode-server-setup
-Script that provision vscode server on public VM
+
+This script automates the provisioning of a VS Code Server on a public virtual machine (VM).
 
 ## Prerequisites
-Setup _config.ini_ file 
 
-```
-[config]
-USER=vscode-admin
-PASSWORD={your_secure_password}
-LOGIN_PASSWORD={your_secure_password}
-DOMAIN={www.example.com}
-EMAIL={fake.email@email.com}
-CODE_SERVER_VERSION="4.97.2"
-```
-[NOTE]
-====
-CODE_SERVER_VERSION can vary depend on latest update, please check:
-https://github.com/coder/code-server/releases/ for latest one
-===
+1.  **Configure `config.ini`:**
 
+    Create a `config.ini` file with the following structure:
 
-## Add execute privileges 
-```
-chmod +x setup_code_server.sh
-```
+    ```ini
+    [config]
+    USER=vscode-admin
+    PASSWORD={your_secure_password}
+    LOGIN_PASSWORD={your_secure_password}
+    DOMAIN=[www.example.com](https://www.example.com)
+    EMAIL=fake.email@email.com
+    CODE_SERVER_VERSION="4.97.2"
+    ```
 
-## Execute script with _config.ini_ setup 
-```
-./setup_code_server.sh
-```
-[NOTE]
-===
-Do not run script with `sh`, must be run with `bash`
-===
+    **Note:** The `CODE_SERVER_VERSION` may vary. Refer to the latest releases on [https://github.com/coder/code-server/releases/](https://github.com/coder/code-server/releases/) for the most up-to-date version.
 
-When script reach step *7. Let's Encrypt SSL Certificate*, it will pause so you can enter modify your DNS A or AAA record.
+2.  **Make the script executable:**
 
-``` bash
-Please create a DNS A record for {www.example.com} pointing to the public IP address:
-IPv4: {X.X.X.X}
-IPv6: {X::X}
-Press Enter to continue after you have created the DNS record.
-```
+    ```bash
+    chmod +x setup_code_server.sh
+    ```
 
-Certificate validation will continue after you confirm prompt.
+## Usage
 
-## Execute script with with interactive mode setup 
-```
-./setup_code_server.sh --interactive
-```
+### Using `config.ini`
 
-Example output
-``` bash
-./setup_code_server.sh --interactive
-Enter username: 
-Enter password: 
-Enter domain: 
-Enter email: 
-```
+1.  **Execute the script:**
 
-## Execute script with with interactive mode setup 
+    ```bash
+    ./setup_code_server.sh
+    ```
 
-Example of successful outout:
-``` terminal
-sudo systemctl status code-server@{vscode-admin}
+    **Note:** The script must be executed with `bash`, not `sh`.
+
+2.  **DNS Configuration:**
+
+    During step 7, "Let's Encrypt SSL Certificate," the script will pause and prompt you to configure your DNS records:
+
+    ```bash
+    Please create a DNS A record for [www.example.com](https://www.example.com) pointing to the public IP address:
+    IPv4: X.X.X.X
+    IPv6: X::X
+    Press Enter to continue after you have created the DNS record.
+    ```
+
+    After creating the DNS A or AAAA record, press Enter to continue the certificate validation.
+
+### Interactive Mode
+
+1.  **Execute the script with the `--interactive` flag:**
+
+    ```bash
+    ./setup_code_server.sh --interactive
+    ```
+
+2.  **Follow the prompts:**
+
+    ```bash
+    Enter username:
+    Enter password:
+    Enter domain:
+    Enter email:
+    ```
+
+## Example Output (Successful Installation)
+
+```terminal
+sudo systemctl status code-server@vscode-admin
 ● code-server@vscode-admin.service - code-server
      Loaded: loaded (/usr/lib/systemd/system/code-server@.service; enabled; preset: enabled)
      Active: active (running) since Thu 2025-03-06 01:05:27 UTC; 1min 8s ago
@@ -80,10 +88,8 @@ Mar 06 01:05:27 localhost systemd[1]: Started code-server@vscode-admin.service -
 Mar 06 01:05:27 localhost code-server[8943]: [2025-03-06T01:05:27.964Z] info  code-server 4.97.2 34b8d2ed69811c3315a465f01492e9448c9254aa
 Mar 06 01:05:27 localhost code-server[8943]: [2025-03-06T01:05:27.966Z] info  Using user-data-dir /home/vscode-admin/.local/share/code-server
 Mar 06 01:05:27 localhost code-server[8943]: [2025-03-06T01:05:27.983Z] info  Using config file /home/vscode-admin/.config/code-server/config.yaml
-Mar 06 01:05:27 localhost code-server[8943]: [2025-03-06T01:05:27.983Z] info  HTTP server listening on http://127.0.0.1:8080/
+Mar 06 01:05:27 localhost code-server[8943]: [2025-03-06T01:05:27.983Z] info  HTTP server listening on [http://127.0.0.1:8080/](http://127.0.0.1:8080/)
 Mar 06 01:05:27 localhost code-server[8943]: [2025-03-06T01:05:27.983Z] info    - Authentication is enabled
-Mar 06 01:05:27 localhost code-server[8943]: [2025-03-06T01:05:27.984Z] info      - Using password from /home/vscode-admin/.config/code-server/config.yaml
+Mar 06: 01:05:27 localhost code-server[8943]: [2025-03-06T01:05:27.984Z] info      - Using password from /home/vscode-admin/.config/code-server/config.yaml
 Mar 06 01:05:27 localhost code-server[8943]: [2025-03-06T01:05:27.984Z] info    - Not serving HTTPS
 Mar 06 01:05:27 localhost code-server[8943]: [2025-03-06T01:05:27.984Z] info  Session server listening on /home/vscode-admin/.local/share/code-server/code-server-ipc.sock
-```
-
