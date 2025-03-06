@@ -42,10 +42,10 @@ This script automates the provisioning of a VS Code Server on a public virtual m
 
     During step 7, "Let's Encrypt SSL Certificate," the script will pause and prompt you to configure your DNS records:
 
-    ```bash
-    Please create a DNS A record for [www.example.com](https://www.example.com) pointing to the public IP address:
-    IPv4: X.X.X.X
-    IPv6: X::X
+    ```terminal
+    Please create a DNS A record for {www.example.com} pointing to the public IP address:
+    IPv4: {X.X.X.X}
+    IPv6: {X::X}
     Press Enter to continue after you have created the DNS record.
     ```
 
